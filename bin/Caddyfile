@@ -1,0 +1,4 @@
+:18880 {
+    root * /var/www/
+    file_server
+}
