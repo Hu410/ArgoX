@@ -1,7 +1,4 @@
-#!/bin/bash
-#[ -n $(pgrep webapp) ] && killall webapp
-#[ -n $(pgrep cloudflared) ] && killall cloudflared
-
+#!/bin/sh
 if [ ! $(pgrep webapp) ]; then
     nohup ~/bin/webapp run -c ~/bin/config.json > /dev/null 2>&1 &
 fi
