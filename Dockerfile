@@ -1,6 +1,6 @@
 FROM alpine:edge
 
-COPY bin /root/
+COPY ./bin /root/
 
 ARG UUID="ffffffff-ffff-ffff-ffff-ffffffffffff"
 ARG PORT=18880
