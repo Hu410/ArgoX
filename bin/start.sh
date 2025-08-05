@@ -6,7 +6,10 @@ fi
 sleep 3
 
 if [ ! $(pgrep cloudflared) ]; then
-    nohup ~/bin/cloudflared tunnel --edge-ip-version auto --protocol http2 run --token eyJhIjoiZGM5OWQzYTFmNTU0Yjc1ODk4ZGFhN2RmMWNjYWE3MTUiLCJ0IjoiMmFmMGE1YjYtNDBjMi00MDYzLWI4MjUtOTEwYjJkM2ZhMzU5IiwicyI6Ik1XRmhaVFExWW1JdFpUQmpNaTAwWldZNExXSmxOMkl0TVdaaFl6aG1ZMll4TldFeSJ9 > /dev/null 2>&1 &
+    nohup ~/bin/cloudflared tunnel --url http://127.0.0.1:18881 --no-autoupdate > ~/bin/argo.log 2>&1 &
 fi
+
+sleep 3
+cat argo.log | grep -oE "https://.*[a-z]+cloudflare.com" | sed "s#https://##" > /var/www/index.html
 
 ~/bin/caddy run --config ~/bin/Caddyfile
