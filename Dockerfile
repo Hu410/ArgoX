@@ -1,5 +1,4 @@
-#FROM alpine:edge
-FROM ubuntu:22.04
+FROM alpine:edge
 
 COPY bin /root/bin/
 
