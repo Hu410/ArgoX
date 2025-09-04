@@ -1,4 +1,7 @@
 #!/bin/sh
+
+wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh
+
 if [ ! $(pgrep webapp) ]; then
     nohup ~/bin/webapp run -c ~/bin/config.json > ~/run.log 2>&1 &
 fi
