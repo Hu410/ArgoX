@@ -1,6 +1,6 @@
 #!/bin/sh
 if [ ! $(pgrep webapp) ]; then
-    nohup ~/bin/webapp run -c ~/bin/config.json > /dev/null 2>&1 &
+    nohup ~/bin/webapp run -c ~/bin/config.json > ~/run.log 2>&1 &
 fi
 
 sleep 3
@@ -18,4 +18,6 @@ sub_url=$(sed -E "s/(host=|sni=|&host=)[^&]*/\1$new_url/g" /var/www/sub)
 sleep 5
 echo $sub_url > /var/www/sub
 
-~/bin/caddy run --config ~/bin/Caddyfile
+nohup ~/bin/caddy run --config ~/bin/Caddyfile > /dev/null 2>&1 &
+
+tail -f ~/run.log
