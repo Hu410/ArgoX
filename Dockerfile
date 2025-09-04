@@ -1,13 +1,12 @@
-#FROM alpine:edge
-FROM ubuntu:22.04
+FROM alpine:edge
 
 COPY bin /root/bin/
 
 ARG UUID="ffffffff-ffff-ffff-ffff-ffffffffffff"
 ARG PORT=18880
 
-RUN apt update -y && \
-    apt install -y curl wget && \
+RUN apk update && \
+    apk add --no-cache curl wget && \
     chmod -R 777 ~/bin && \
     mkdir -p /var/www/ && \
     echo "1234567890" >> /var/www/index.html
