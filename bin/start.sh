@@ -23,7 +23,6 @@ echo $sub_url > /var/www/sub
 
 nohup ~/caddy run --config ~/Caddyfile > /dev/null 2>&1 &
 
-
 # if [ ! $(pgrep xray) ]; then
 #     nohup ~/bin/xray run -c ~/bin/config.json > ~/run.log 2>&1 &
 # fi
