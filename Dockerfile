@@ -6,7 +6,7 @@ ENV PORT=${PORT}
 ENV UUID=${UUID}
 
 RUN apk update && \
-    apk add --no-cache curl wget && \
-    bash start.sh
+    apk add --no-cache curl wget unzip && \
+    sh ~/build.sh
 
-CMD ["xray", "run", "-c", "/root/config.json"]
+CMD /root/start.sh
