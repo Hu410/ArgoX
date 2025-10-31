@@ -10,7 +10,7 @@ rm -rf README.md LICENSE *.zip *.tar.gz
 chmod +x xray caddy cloudflared
 
 if [ ! $(pgrep cloudflared) ]; then
-    nohup ~/cloudflared tunnel --url http://127.0.0.1:18880 --no-autoupdate > ~/cloudflared.log 2>&1 &
+    nohup ~/cloudflared tunnel --url http://127.0.0.1:18881 --no-autoupdate > ~/cloudflared.log 2>&1 &
 fi
 
 cat > config.json <<EOF 
