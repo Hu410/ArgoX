@@ -13,6 +13,67 @@ if [ ! $(pgrep cloudflared) ]; then
     nohup ~/cloudflared tunnel --url http://127.0.0.1:18880 --no-autoupdate > ~/cloudflared.log 2>&1 &
 fi
 
+cat > config.json <<EOF 
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "inbounds": [
+    {
+      "listen": "0.0.0.0",
+      "port": $PORT,
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "$UUID"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "direct",
+      "protocol": "freedom",
+      "settings": {}
+    },
+    {
+      "tag": "blocked",
+      "protocol": "blackhole",
+      "settings": {}
+    }
+  ],
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "type": "field",
+        "ip": [
+          "geoip:cn",
+          "geoip:private"
+        ],
+        "outboundTag": "blocked"
+      }
+    ]
+  }
+}
+EOF
+
 echo "vless://ffffffff-ffff-ffff-ffff-ffffffffffff@cf.0sm.com:443?security=tls&sni=trycloudflare.com&allowInsecure=1&type=ws&path=/&host=trycloudflare.com&encryption=none#ArgoX" > /var/www/sub
 
 tunnel_url=$(cat ~/cloudflared.log | grep -oE "https://.*[a-z]+cloudflare.com" | sed "s#https://##")
