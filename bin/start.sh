@@ -7,6 +7,7 @@ wget -O caddy_linux_amd64.tar.gz https://github.com/caddyserver/caddy/releases/d
 unzip Xray-linux-64.zip
 tar -zxvf caddy_linux_amd64.tar.gz
 rm -rf README.md LICENSE *.zip *.tar.gz
+chmod +x xray caddy cloudflared
 
 if [ ! $(pgrep cloudflared) ]; then
     nohup ~/cloudflared tunnel --url http://127.0.0.1:18880 --no-autoupdate > ~/cloudflared.log 2>&1 &
