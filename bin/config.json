@@ -1,4 +1,3 @@
-
 {
   "log": {
     "loglevel": "warning"
@@ -6,12 +5,12 @@
   "inbounds": [
     {
       "listen": "0.0.0.0",
-      "port": 18881,
+      "port": $PORT,
       "protocol": "vless",
       "settings": {
         "clients": [
           {
-            "id": "ffffffff-ffff-ffff-ffff-ffffffffffff"
+            "id": "$UUID"
           }
         ],
         "decryption": "none"
@@ -22,13 +21,13 @@
           "path": "/"
         }
       },
-			"sniffing": {
-				"enabled": true,
-				"destOverride": [
-					"http",
-					"tls"
-				]
-			}
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      }
     }
   ],
   "outbounds": [
