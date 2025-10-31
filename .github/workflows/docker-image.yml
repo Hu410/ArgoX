@@ -1,6 +1,12 @@
 name: Build Docker Image
 on:
   workflow_dispatch:
+
+env:
+  DOCKER_BUILD_ARGS: |  # 定义全局构建参数
+    PORT=${{ vars.PORT || '18880' }}  # 优先使用vars变量，默认值'18880'
+    UUID=${{ vars.UUID || 'ffffffff-ffff-ffff-ffff-ffffffffffff' }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,6 +16,6 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           # 下方的name格式为：Docker Hub ID/自定义镜像名称
-          name: binmt/argo
+          name: binmt/argox
           username: '${{ secrets.DOCKER_USERNAME }}'
           password: '${{ secrets.DOCKER_PASSWORD }}'
